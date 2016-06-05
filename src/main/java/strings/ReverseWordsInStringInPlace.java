@@ -1,4 +1,4 @@
-package quiz;
+package strings;
 
 public class ReverseWordsInStringInPlace {
 

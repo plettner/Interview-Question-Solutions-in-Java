@@ -1,4 +1,4 @@
-package quiz;
+package balance;
 
 /**
  * Return <code>true</code> if the string has balanced parentheses.
