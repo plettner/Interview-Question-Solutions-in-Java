@@ -1,14 +1,21 @@
 package quiz;
 
 /**
- * Return <code>true</code> if the string has balanced parens.
- * Examples:
+ * Return <code>true</code> if the string has balanced parentheses.
+ * This question was simpler than the other questions I've seen that
+ * ask something similar, but with multiple kinds of braces.  One 
+ * could use the same, stack-based solution for this.  But it turns
+ * out it's pretty easy to just use a simple counter.  See the code 
+ * below.
+ * 
+ * Test Data Examples:
  * <ul>
  * <li>() -- true</li>
  * <li>( -- false</li>
  * <li>) -- false </li>
  * <li>(()) -- true</li>
  * <li>(()()()) -- true</li>
+ * <li>( ( ) ( ) ( ) ) -- true</li>
  * <li> -- true (empty string)</li>
  * </ul>
  */
