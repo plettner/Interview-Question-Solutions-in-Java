@@ -112,4 +112,40 @@ public class LinkedListTest {
 		}
 	}
 
+	@Test
+	public void deleteAtEachLast() {
+		final LinkedList linkedList = new LinkedList();
+		for (int index = 0; index < 10; index++) {
+			linkedList.insertAt(index, index);
+		}
+
+		while (linkedList.getLength() > 0) {
+			linkedList.deleteAt(linkedList.getLength() - 1);
+		}
+	}
+
+	@Test
+	public void deleteHead() {
+		final LinkedList linkedList = new LinkedList();
+		for (int index = 0; index < 10; index++) {
+			linkedList.insertAt(index, index);
+		}
+
+		while (linkedList.getLength() > 0) {
+			linkedList.deleteAt(0);
+		}
+	}
+
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void deleteNegOne() {
+		final LinkedList linkedList = new LinkedList();
+		linkedList.deleteAt(-1);
+	}
+
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void deleteTooBig() {
+		final LinkedList linkedList = new LinkedList();
+		linkedList.deleteAt(100);
+	}
+
 }

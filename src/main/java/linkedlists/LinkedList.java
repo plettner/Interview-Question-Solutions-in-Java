@@ -76,7 +76,7 @@ public class LinkedList {
 		// Special case -- index = 0
 		if (index == 0) {
 			newNode.setNext(this.getHeadNode());
-			this.setHeadNode(newNode);
+			this.head = newNode;
 			return;
 		}
 
@@ -103,6 +103,36 @@ public class LinkedList {
 		this.insertAfterNode(node, newValue);
 	}
 
+	public void deleteAt(int index) {
+		if (index < 0 || index >= this.getLength()) {
+			throw new IndexOutOfBoundsException(String.valueOf(index));
+		}
+
+		if (index == 0) {
+			this.head = this.getHeadNode().getNext();
+		} else {
+			final Node node = this.getAtNode(index - 1);
+			if (node != null) {
+				node.setNext(node.getNext().getNext());
+			}
+		}
+	}
+
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder("[");
+		Node node = this.getHeadNode();
+		while (node != null) {
+			if (node != this.getHeadNode()) {
+				sb.append(", ");
+			}
+			sb.append(node != null ? node.getValue().toString() : "<null>");
+			node = node.getNext();
+		}
+		sb.append("]");
+		return sb.toString();
+	}
+
 	private void insertAfterNode(Node node, Object value) {
 		if (node == null) {
 			return;
@@ -124,28 +154,16 @@ public class LinkedList {
 		return null;
 	}
 
-	private Node findPreviousNode(Object value) {
-		Node node = this.getHeadNode();
-		while (node != null) {
-			if (node.getNext() != null && node.getNext().getValue() != null
-					&& node.getNext().getValue().equals(value)) {
-				return node;
-			}
-			node = node.getNext();
-		}
-		return null;
-	}
-
 	public void append(Object object) {
 		if (object == null) {
 			return; // not allowing null entries in this list
 		}
-		final Node node = this.createNode(object);
-		final Node tail = LinkedList.findTailNode(this.getHeadNode());
-		if (tail == null) {
-			this.setHeadNode(node);
+		final Node newNode = this.createNode(object);
+		if (this.getHeadNode() == null) {
+			this.head = newNode;
 		} else {
-			tail.setNext(node);
+			final Node tail = LinkedList.findTailNode(this.getHeadNode());
+			tail.setNext(newNode);
 		}
 
 	}
@@ -162,14 +180,6 @@ public class LinkedList {
 
 	private Node getHeadNode() {
 		return this.head;
-	}
-
-	private void setHeadNode(Node node) {
-		final Node nodeTail = LinkedList.findTailNode(node);
-		if (nodeTail != null) {
-			nodeTail.setNext(this.getHeadNode());
-			this.head = node;
-		}
 	}
 
 	private Node getTailNode() {
@@ -205,21 +215,6 @@ public class LinkedList {
 		}
 
 		throw new IndexOutOfBoundsException("Somehow ran off the end of the list");
-	}
-
-	@Override
-	public String toString() {
-		final StringBuilder sb = new StringBuilder("[");
-		Node node = this.getHeadNode();
-		while (node != null) {
-			if (node != this.getHeadNode()) {
-				sb.append(", ");
-			}
-			sb.append(node != null ? node.getValue().toString() : "<null>");
-			node = node.getNext();
-		}
-		sb.append("]");
-		return sb.toString();
 	}
 
 }
