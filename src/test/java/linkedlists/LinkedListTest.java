@@ -148,4 +148,26 @@ public class LinkedListTest {
 		linkedList.deleteAt(100);
 	}
 
+	@Test
+	public void isCircular() {
+		final LinkedList linkedList = new LinkedList();
+		for (int index = 0; index < 5; index++) {
+			linkedList.insertAt(index, index);
+		}
+
+		Assert.assertFalse(linkedList.isCircular());
+	}
+
+	@Test
+	public void isCircularYes() {
+		final LinkedList linkedList = new LinkedList();
+		for (int index = 0; index < 8; index++) {
+			linkedList.insertAt(index, index);
+		}
+
+		linkedList.makeCircular(0, linkedList.getLength() - 1);
+
+		Assert.assertTrue(linkedList.isCircular());
+	}
+
 }

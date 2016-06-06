@@ -178,6 +178,20 @@ public class LinkedList {
 		return length;
 	}
 
+	public boolean isCircular() {
+		Node slow = this.getHeadNode();
+		Node fast = this.getHeadNode().getNext();
+
+		while (slow != null && fast != null && slow != fast) {
+			if (fast.getNext() != null) {
+				fast = fast.getNext().getNext();
+			}
+			slow = slow.getNext();
+		}
+
+		return slow == fast;
+	}
+
 	private Node getHeadNode() {
 		return this.head;
 	}
@@ -215,6 +229,15 @@ public class LinkedList {
 		}
 
 		throw new IndexOutOfBoundsException("Somehow ran off the end of the list");
+	}
+
+	/**
+	 * This method is used just to test the isCircular() method
+	 */
+	public void makeCircular(int firstIndex, int laterIndex) {
+		final Node tailNode = this.getAtNode(laterIndex);
+		final Node node = this.getAtNode(firstIndex);
+		tailNode.setNext(node);
 	}
 
 }
