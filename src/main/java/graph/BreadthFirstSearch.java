@@ -10,7 +10,7 @@ import java.util.Queue;
  * This class performs a breadth first search (BFS) on a directed graph. The
  * compute() method returns true if, given a starting node of the graph, it
  * finds the node you're looking for, the goalNode.
- *
+ * <p>
  * Basically, the algorithm is to take the starting node, and assuming it's not
  * the goal node, then put it into the queue and mark it visited. Now, loop on
  * the queue as long as it's not empty. If it's not empty, take a node out of
@@ -19,6 +19,7 @@ import java.util.Queue;
  * looping. If you finish the loop (exhausting the queue) then return false
  * because you never found your goal node. It must not be part of the same
  * component of the graph as the start node.
+ * </p>
  */
 public class BreadthFirstSearch {
 
