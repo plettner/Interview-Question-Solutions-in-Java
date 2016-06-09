@@ -16,11 +16,22 @@ public class TreeBuilder {
 	}
 
 	/**
-	 * Tree is already built. Just return the "trunk" of the tree.
+	 * Reset the nodes in the event that they were changed by tests.
 	 * 
 	 * @return the trunk node of the tree
 	 */
 	public Node build() {
+
+		this.n1.set(1, null, null);
+		this.n3.set(3, null, null);
+		this.n2.set(2, this.n1, this.n3);
+
+		this.n5.set(5, null, null);
+		this.n7.set(7, null, null);
+		this.n6.set(6, this.n5, this.n7);
+
+		this.n4.set(4, this.n2, this.n6);
+
 		return this.n4;
 	}
 

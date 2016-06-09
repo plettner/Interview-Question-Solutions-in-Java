@@ -2,9 +2,9 @@ package binarytree;
 
 public class Node {
 
-	private final int value;
-	private final Node left;
-	private final Node right;
+	private int value;
+	private Node left;
+	private Node right;
 
 	public Node(int value, Node left, Node right) {
 		this.value = value;
@@ -12,16 +12,34 @@ public class Node {
 		this.right = right;
 	}
 
+	public void set(int value, Node leftNode, Node rightNode) {
+		this.setValue(value);
+		this.setLeft(leftNode);
+		this.setRight(rightNode);
+	}
+
 	public int getValue() {
 		return this.value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
 	}
 
 	public Node getLeft() {
 		return this.left;
 	}
 
+	public void setLeft(Node node) {
+		this.left = node;
+	}
+
 	public Node getRight() {
 		return this.right;
+	}
+
+	public void setRight(Node node) {
+		this.right = node;
 	}
 
 	@Override
