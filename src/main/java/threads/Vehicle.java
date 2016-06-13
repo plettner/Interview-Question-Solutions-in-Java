@@ -18,15 +18,7 @@ public class Vehicle implements Runnable {
 		final Intersection intersection = Intersection.getInstance();
 		while (this.running) {
 			intersection.execute(this.getVehicleId());
-			this.sleep(1);
-		}
-	}
-
-	private void sleep(int millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (final Exception exception) {
-			System.err.println(exception.toString());
+			ThreadUtils.sleep(1);
 		}
 	}
 

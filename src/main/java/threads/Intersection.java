@@ -21,19 +21,11 @@ public class Intersection {
 		return Intersection.SINGLETON;
 	}
 
-	public synchronized void execute(int vehicleId) {
+	public void execute(int vehicleId) {
 		synchronized (this) {
 			System.out.println("#" + vehicleId + " GREEN!");
-			this.sleep(100);
+			ThreadUtils.sleep(1);
 			System.out.println("#" + vehicleId + " RED!");
-		}
-	}
-
-	private void sleep(int millis) {
-		try {
-			Thread.sleep(millis);
-		} catch (final Exception exception) {
-			System.err.println(exception.toString());
 		}
 	}
 
