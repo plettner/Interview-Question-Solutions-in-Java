@@ -8,18 +8,30 @@ public class BinaryTree {
 	}
 
 	public int getSize() {
+		return this.getSize(this.root);
+	}
+
+	public int getSize(Node node) {
 		final CountNodeHandler nodeHandler = new CountNodeHandler();
-		this.postOrderTraversal(nodeHandler);
+		this.postOrderTraversal(node, nodeHandler);
 		return nodeHandler.getCount();
 	}
 
 	public void postOrderTraversal(NodeHandler nodeHandler) {
-		this.postOrderTraversalHelper(this.root, nodeHandler);
+		this.postOrderTraversal(this.root, nodeHandler);
+	}
+
+	public void postOrderTraversal(Node node, NodeHandler nodeHandler) {
+		this.postOrderTraversalHelper(node, nodeHandler);
 		nodeHandler.processDone();
 	}
 
 	public void inOrderTraversal(NodeHandler nodeHandler) {
-		this.inOrderTraversalHelper(this.root, nodeHandler);
+		this.inOrderTraversal(this.root, nodeHandler);
+	}
+
+	public void inOrderTraversal(Node node, NodeHandler nodeHandler) {
+		this.inOrderTraversalHelper(node, nodeHandler);
 		nodeHandler.processDone();
 	}
 
@@ -102,6 +114,81 @@ public class BinaryTree {
 			return foundNode;
 		}
 		return this.searchHelper(node.getRight(), value);
+	}
+
+	public void remove(int value) {
+		if (this.root == null) {
+			return;
+		}
+		if (this.root.getValue() == value) {
+			final int sizeLeft = this.getSize(this.root.getLeft());
+			final int sizeRight = this.getSize(this.root.getRight());
+			if (sizeRight > sizeLeft) {
+				final Node node = this.findMinimum(this.root.getRight());
+				if (node != null) {
+					this.root.setValue(node.getValue());
+					this.remove(this.root.getRight(), node.getValue());
+				}
+			} else {
+				final Node node = this.findMaximum(this.root.getLeft());
+				if (node != null) {
+					this.root.setValue(node.getValue());
+					this.remove(this.root.getLeft(), node.getValue());
+				}
+			}
+
+		} else {
+			this.remove(this.root, value);
+		}
+	}
+
+	private void remove(Node parent, int value) {
+		if (parent == null) {
+			return;
+		}
+
+		final Node left = parent.getLeft();
+		final Node right = parent.getRight();
+
+		if (left != null && left.getValue() == value) {
+			if (left.hasNoChildren()) {
+				parent.setLeft(null);
+			} else if (left.hasOnlyOneChild()) {
+				parent.setLeft(left.getOnlyChild());
+			} else {
+				final Node node = this.findMaximum(left);
+				left.setValue(node.getValue());
+				this.remove(left, node.getValue());
+			}
+		} else if (right != null && right.getValue() == value) {
+			if (right.hasNoChildren()) {
+				parent.setRight(null);
+			} else if (right.hasOnlyOneChild()) {
+				parent.setRight(right.getOnlyChild());
+			} else {
+				final Node node = this.findMinimum(right);
+				right.setValue(node.getValue());
+				this.remove(right, node.getValue());
+			}
+		} else if (value < parent.getValue()) {
+			this.remove(left, value);
+		} else if (value > parent.getValue()) {
+			this.remove(right, value);
+		}
+	}
+
+	private Node findMinimum(Node node) {
+		if (node.getLeft() == null) {
+			return node;
+		}
+		return this.findMinimum(node.getLeft());
+	}
+
+	private Node findMaximum(Node node) {
+		if (node.getRight() == null) {
+			return node;
+		}
+		return this.findMaximum(node.getRight());
 	}
 
 }

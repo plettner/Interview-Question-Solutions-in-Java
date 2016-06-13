@@ -42,6 +42,27 @@ public class Node {
 		this.right = node;
 	}
 
+	/**
+	 * Convenience method to return the only child on a node. Doesn't ensure
+	 * that the node has only one child, though.
+	 *
+	 * @return the only child node on this node
+	 */
+	public Node getOnlyChild() {
+		if (this.right != null) {
+			return this.right;
+		}
+		return this.left;
+	}
+
+	public boolean hasOnlyOneChild() {
+		return this.left != null && this.right == null || this.left == null && this.right != null;
+	}
+
+	public boolean hasNoChildren() {
+		return this.left == null && this.right == null;
+	}
+
 	@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder();
